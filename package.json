@@ -1,7 +1,7 @@
 {
-  "name": "loewetv-api",
-  "version": "1.0.0",
-  "description": "",
+  "name": "loewe.js",
+  "version": "1.0.1",
+  "description": "unofficial loewe tv typescript / javascript api wrapper",
   "scripts": {
     "dev": "ts-node example/demo.ts",
     "build": "tsc"
@@ -21,7 +21,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist",
+    "loewe_tablet_0001.wsdl",
+    "demo.ts"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.42.0",

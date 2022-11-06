@@ -7,5 +7,5 @@ export interface Xsd1InjectRcKeyRequestType {
     /** string */
     ClientId?: string;
     /** InputEventSequence */
-    InputEventSequence?: InputEventSequence;
+    InputEventSequence?: object
 }

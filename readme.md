@@ -67,6 +67,16 @@ createClientAsync("path/to/wsdl.wsdl", {
 
 The response data is serialized to JSON, so you can use it directly. It's located inside the first array element.
 
+## FAQ
+### How do I implement an array of e.g. RCKeys?
+I just had the same problem ;) I haven't known much about SOAP myself, so I found out, there's an easy way. Look at the demo.ts
+file in this packages directory.
+Important are:
+1. the `namespaceArrayElements: false` option in the `createClientAsync` call
+2. the `InputEventSequence` with its Array of XML nodes containing the attributes defining the RCKey
+
+looks a bit difficult or annoying - but works completely fine with the built-in serializer!
+
 ## Contribution
 Feel free to contribute to this project. Just fork it and create a pull request.
 Any Bugfixes or new features are welcome.
