@@ -1,0 +1,3232 @@
+<definitions xmlns:tns="urn:loewe.de:RemoteTV:Tablet" xmlns:xsd1="urn:loewe.de:RemoteTV:Tablet" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="LOEWERemote" targetNamespace="urn:loewe.de:RemoteTV:Tablet">
+
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:loewe.de:RemoteTV:Tablet">
+            <complexType name="i18nstring">
+                <attribute name="lang" type="string"/>
+            </complexType>
+
+            <complexType name="ScheduledTimeType">
+                <attribute name="startTime" type="integer" use="required"/>
+                <attribute name="duration" type="integer" use="required"/>
+            </complexType>
+            <complexType name="MediaItemType">
+                <sequence>
+                    <element name="uuid" type="string"/>
+                    <element name="AncestorUuid" type="string"/>
+                    <element name="Locator" type="anyURI"/>
+                    <element name="Caption" type="xsd1:i18nstring"/>
+                    <element minOccurs="0" name="ShortCaption" type="xsd1:i18nstring"/>
+                    <element minOccurs="0" name="ThumbnailURL" type="anyURI"/>
+                </sequence>
+                <attribute name="itemInfoClass" type="string"/>
+            </complexType>
+            <complexType name="MediaItemReferenceType">
+                <attribute name="mediaItemUuid" type="string"/>
+                <attribute name="itemClass" type="string"/>
+                <attribute name="shortInfo" type="string"/>
+                <attribute name="locator" type="string"/>
+                <attribute name="caption" type="string"/>
+                <attribute name="thumbnailUrl" type="string"/>
+                <attribute name="streamingUrl" type="string"/>
+                <attribute name="attributes" type="string"/>
+            </complexType>
+            <complexType name="MediaItemDRPlusType">
+                <sequence>
+                    <element name="uuid" type="string"/>
+                    <element name="Locator" type="anyURI"/>
+                </sequence>
+                <attribute name="itemInfoClass" type="string"/>
+            </complexType>
+            <complexType name="MediaInfoDRPlusType">
+                <sequence>
+                    <element name="Title" type="string"/>
+                    <element name="Subtitle" type="string"/>
+                    <element name="ServiceName" type="string"/>
+                    <element name="LongDescription" type="xsd1:i18nstring"/>
+                    <element name="Duration" type="string"/>
+                    <element name="StartTime" type="string"/>
+                    <element name="EndTime" type="string"/>
+                    <element name="StreamingUrl" type="anyURI"/>
+                    <element name="ImageUrl" type="anyURI"/>
+                    <element name="Attributes" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="MediaItemDRPlusInfoBundle">
+                <sequence>
+                    <element name="MediaItemDRPlus" type="xsd1:MediaItemDRPlusType"/>
+                    <element name="MediaInformationDRPlus" type="xsd1:MediaInfoDRPlusType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResultItemChannelListType">
+                <sequence>
+                    <element name="View" type="string"/>
+                    <element name="Name" type="string"/>
+                    <element name="TotalResults" type="string"/>
+                    <element name="Hash" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResultVolumeType">
+                <sequence>
+                    <element name="Id" type="string"/>
+                    <element name="Name" type="string"/>
+                    <element name="Purpose" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResultTimerListType">
+                <sequence>
+                    <element name="EntryUuid" type="string"/>
+                    <element name="EntryTitle" type="string"/>
+                    <element name="SourceUuid" type="string"/>
+                    <element name="DestinationId" type="string"/>
+                    <element name="Start" type="string"/>
+                    <element name="End" type="string"/>
+                    <element name="DescramblingAt" type="string"/>
+                    <element name="RecordingType" type="string"/>
+                    <element name="Crid" type="string"/>
+                    <element name="LockPin" type="string"/>
+                    <element name="ProgPin" type="string"/>
+                    <element name="Attributes" type="string"/>
+                    <element name="SourceAncestorUuid" type="string"/>
+                    <element name="SourceUri" type="string"/>
+                    <element name="SourceName" type="string"/>
+                    <element name="SourceLocator" type="string"/>
+                    <element name="DestinationVolumeUri" type="string"/>
+                    <element name="DestinationVolumeId" type="string"/>
+                    <element name="EpgEventId" type="string"/>
+                    <element name="SourceLocatorName" type="string"/>
+                    <element name="DestinationVolumeIdName" type="string"/>
+                    <element name="SeriesTag" type="string"/>
+                    <element name="NumColumns" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="MediaInfoType">
+                <sequence>
+                    <element minOccurs="0" name="ThumbnailURL" type="anyURI"/>
+                    <element minOccurs="0" name="Playtime" type="string"/>
+                    <element minOccurs="0" name="ShortInfo" type="xsd1:i18nstring"/>
+                    <element minOccurs="0" name="ExtendedInfo" type="xsd1:i18nstring"/>
+                    <element minOccurs="0" name="Artist" type="string"/>
+                    <element minOccurs="0" name="Album" type="string"/>
+                    <element minOccurs="0" name="AlbumUUID" type="string"/>
+                    <element minOccurs="0" name="TrackNumber" type="string"/>
+                    <element minOccurs="0" name="Year" type="string"/>
+                    <element minOccurs="0" name="Genre" type="string"/>
+                    <element minOccurs="0" name="Attributes" type="string"/>
+                    <element minOccurs="0" name="StreamingUrl" type="anyURI"/>
+                </sequence>
+            </complexType>
+            <complexType name="MediaItemInfoBundle">
+                <sequence>
+                    <element name="MediaItem" type="xsd1:MediaItemType"/>
+                    <element name="MediaInformation" type="xsd1:MediaInfoType"/>
+                </sequence>
+            </complexType>
+            <complexType name="MediaEventType">
+                <sequence>
+                    <element name="uuid" type="string"/>
+                    <element name="MediaInformation" type="xsd1:MediaInfoType"/>
+                    <element name="Availability" type="xsd1:ScheduledTimeType"/>
+                </sequence>
+            </complexType>
+            <complexType name="MediaEventReferenceType">
+                <attribute name="mediaEventUuid" type="string"/>
+            </complexType>
+            <complexType name="QueryParametersRangeType">
+                <attribute name="startIndex" type="integer"/>
+                <attribute name="maxItems" type="integer"/>
+            </complexType>
+            <complexType name="QueryParametersOrderFieldType">
+                <attribute name="field" type="string"/>
+                <attribute name="type" type="string"/>
+            </complexType>
+            <complexType name="QueryParametersType">
+                <sequence>
+                    <element name="Range" type="xsd1:QueryParametersRangeType"/>
+                    <!-- element name="OrderField" NYI -->
+                    <!-- element name="SelectorPart" NYI -->
+                    <element name="MediaItemInformation" type="string" minOccurs="0" maxOccurs="1"/>
+                    <element name="MediaItemClass" type="string" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="AdditionalParametersPropertiesType">
+                <attribute name="isActiveList" type="string"/>
+                <attribute name="hasPurpose" type="string"/>
+            </complexType>
+            <complexType name="AdditionalParametersType">
+                <sequence>
+                    <element name="Properties" type="xsd1:AdditionalParametersPropertiesType"/>
+                </sequence>
+            </complexType>
+            <complexType name="SeekToContentParametersType">
+                <sequence>
+                    <element name="Selections" type="xsd1:IteratorSelectionsType"/>
+                    <element name="Which" type="string" minOccurs="0" maxOccurs="1"/>
+                    <element name="Offset" type="string" minOccurs="0" maxOccurs="1"/>
+                    <element name="WindowSize" type="string" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResultItemFragmentType">
+                <sequence>
+                    <element name="ResultItemReference" type="xsd1:MediaItemReferenceType" maxOccurs="unbounded"/>
+                </sequence>
+                <attribute name="sequenceNumber" type="string"/>
+                <attribute name="totalResults" type="integer"/>
+                <attribute name="returnedResults" type="integer"/>
+                <attribute name="startIndex" type="integer"/>
+                <attribute name="hash" type="integer"/>
+            </complexType>
+            <complexType name="ResultItemChannelListsType">
+                <sequence>
+                    <element name="ResultItemChannelList" type="xsd1:ResultItemChannelListType" maxOccurs="unbounded"/>
+                </sequence>
+                <attribute name="sequenceNumber" type="string"/>
+                <attribute name="totalResults" type="integer"/>
+                <attribute name="returnedResults" type="integer"/>
+                <attribute name="startIndex" type="integer"/>
+            </complexType>
+            <complexType name="ResultItemDRPlusFragmentType">
+                <sequence>
+                    <element name="ResultItemDRPlus" type="xsd1:MediaItemDRPlusInfoBundle" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+                <attribute name="sequenceNumber" type="string"/>
+                <attribute name="totalResults" type="integer"/>
+                <attribute name="returnedResults" type="integer"/>
+                <attribute name="startIndex" type="integer"/>
+            </complexType>
+            <complexType name="ResultVolumesFragmentType">
+                <sequence>
+                    <element name="ResultVolume" type="xsd1:ResultVolumeType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResultTimerListFragmentType">
+                <sequence>
+                    <element name="ResultTimerList" type="xsd1:ResultTimerListType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorSelectionsType">
+                <sequence>
+                    <element name="Selection" type="xsd1:IteratorSelectionType" minOccurs="0"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorFieldsType">
+                <sequence>
+                    <element name="Field" type="string" minOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorOrdersType">
+                <sequence>
+                    <element name="Order" type="xsd1:IteratorOrderType" minOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorSelectionType">
+                <sequence>
+                    <element name="Field" type="string" minOccurs="1" maxOccurs="1"/>
+                    <element name="Condition" type="string" minOccurs="1" maxOccurs="1"/>
+                    <element name="Value" type="string" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorOrderType">
+                <sequence>
+                    <element name="Field" type="string" minOccurs="1" maxOccurs="1"/>
+                    <element name="Direction" type="string" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorRowsType">
+                <sequence>
+                    <element name="Rows" type="xsd1:IteratorRowType"/>
+                </sequence>
+                <attribute name="totalResults" type="integer"/>
+                <attribute name="returnedResults" type="integer"/>
+                <attribute name="startIndex" type="integer"/>
+            </complexType>
+            <complexType name="IteratorRowType">
+                <sequence>
+                    <element name="Row" type="xsd1:IteratorRowValueType"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorRowValueType">
+                <sequence>
+                    <element name="V" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorIdsType">
+                <sequence>
+                    <element name="Id" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorResultsType">
+                <sequence>
+                    <element name="Result" type="xsd1:IteratorResultType"/>
+                </sequence>
+            </complexType>
+            <complexType name="IteratorResultType">
+                <sequence>
+                    <element name="Id" type="string"/>
+                    <element name="IsClosed" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="InputEventType"/>
+            <simpleType name="KeyEventModeType">
+                <restriction base="string">
+                    <enumeration value="press"/>
+                    <enumeration value="release"/>
+                    <enumeration value="repeat"/>
+                </restriction>
+            </simpleType>
+            <complexType name="KeyEventType">
+                <attribute name="mode" type="xsd1:KeyEventModeType"/>
+            </complexType>
+            <complexType name="RCKeyEventSequenceType">
+                <sequence>
+                    <element name="RCKeyEvent" type="xsd1:RCKeyEventType"/>
+                </sequence>
+            </complexType>
+            <complexType name="KeyboardKeyEventSequenceType">
+                <sequence>
+                    <element name="KeyboardKeyEvent" type="xsd1:KeyboardKeyEventType"/>
+                </sequence>
+            </complexType>
+            <complexType name="LocatorSequenceType">
+                <sequence>
+                    <element name="Locator" type="xsd1:LocatorType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ViewNameSequenceType">
+                <sequence>
+                    <element name="ViewName" type="xsd1:ViewNameType"/>
+                </sequence>
+            </complexType>
+            <simpleType name="ModifyAbsoluteRelativeType">
+                <restriction base="string">
+                    <enumeration value="absolute"/>
+                    <enumeration value="relative"/>
+                </restriction>
+            </simpleType>
+            <complexType name="ModifyLocalVolumeEventType">
+                <attribute name="mode" type="xsd1:ModifyAbsoluteRelativeType"/>
+            </complexType>
+            <complexType name="MuteLocalVolumeEventType">
+                <attribute name="mode" type="xsd1:ModifyAbsoluteRelativeType"/>
+            </complexType>
+            <simpleType name="RCKeyAlphabetType">
+                <restriction base="string"/>
+            </simpleType>
+            <complexType name="RCKeyEventType">
+                <complexContent>
+                    <extension base="xsd1:KeyEventType">
+                        <attribute name="alphabet" type="xsd1:RCKeyAlphabetType"/>
+                        <attribute name="value" type="integer"/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RCRawKeyEventType">
+                <complexContent>
+                    <extension base="xsd1:KeyEventType">
+                        <attribute name="system" type="integer"/>
+                        <attribute name="subsystem" type="integer"/>
+                        <attribute name="command" type="integer"/>
+                        <attribute name="status" type="integer"/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="KeyboardKeyEventType">
+                <complexContent>
+                    <extension base="xsd1:KeyEventType">
+                        <attribute name="modifiers" type="string"/>
+                        <attribute name="value" type="integer"/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <simpleType name="PlayerMediumIdType">
+                <restriction base="string"/>
+            </simpleType>
+            <simpleType name="PlayerStateType">
+                <restriction base="string">
+                    <enumeration value="Stopped"/>
+                    <enumeration value="Preparing"/>
+                    <enumeration value="PrepareBuffering"/>
+                    <enumeration value="Prepared"/>
+                    <enumeration value="Playing"/>
+                    <enumeration value="PlayBuffering"/>
+                    <enumeration value="Pausing"/>
+                    <enumeration value="Paused"/>
+                    <enumeration value="Resuming"/>
+                    <enumeration value="Stopping"/>
+                    <enumeration value="Discarding"/>
+                    <enumeration value="Unknown"/>
+                </restriction>
+            </simpleType>
+            <complexType name="HalfPlayerStatusType">
+                <sequence>
+                    <element name="State" type="string"/>
+                    <element name="Position" type="string"/>
+                    <element name="Speed" type="string"/>
+                    <element minOccurs="0" name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                </sequence>
+            </complexType>
+            <simpleType name="StandbyType">
+                <restriction base="string">
+                    <enumeration value="on"/>
+                    <enumeration value="off"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="DeviceType">
+                <restriction base="string">
+                    <enumeration value="PVR"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="RecordingType">
+                <restriction base="string">
+                    <enumeration value="default"/>
+                </restriction>
+            </simpleType>
+            <complexType name="TimerType">
+                <attribute name="starttime" type="integer"/>
+                <attribute name="duration" type="integer"/>
+                <attribute name="repeatDays" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDataType">
+                <sequence>
+                    <element name="servicelist" type="xsd1:ServicelistServicelistType" minOccurs="0" maxOccurs="1"/>
+                    <element name="OpSettings" type="xsd1:OpSettingsType" minOccurs="0" maxOccurs="1"/>
+                    <element name="NetworkConfiguration" type="xsd1:NetworkConfigurationType" minOccurs="0" maxOccurs="1"/>
+                    <element name="Settings" type="string" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServicelistServicelistType">
+                <sequence>
+                    <element name="tuners" type="xsd1:ServicelistTunersType"/>
+                    <element name="services" type="xsd1:ServicelistServicesType"/>
+                    <element name="favorites" type="xsd1:ServicelistFavoritesType"/>
+                </sequence>
+                <attribute name="version" type="string"/>
+                <attribute name="db" type="string"/>
+                <attribute name="scheme" type="string"/>
+                <attribute name="release" type="string"/>
+            </complexType>
+            <complexType name="ServicelistTunersType">
+                <sequence>
+                    <element name="tuner" type="xsd1:ServicelistTunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbs-tuner" type="xsd1:ServicelistDvbSTunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbs2-tuner" type="xsd1:ServicelistDvbS2TunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbc-tuner" type="xsd1:ServicelistDvbCTunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbc2-tuner" type="xsd1:ServicelistDvbC2TunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbt-tuner" type="xsd1:ServicelistDvbTTunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbt2-tuner" type="xsd1:ServicelistDvbT2TunerType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvbip-tuner" type="xsd1:ServicelistDvbIpTunerType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServicelistServicesType">
+                <sequence>
+                    <element name="service" type="xsd1:ServicelistServiceType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="dvb-service" type="xsd1:ServicelistDvbServiceType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="analog-service" type="xsd1:ServicelistAnalogServiceType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServicelistFavoritesType">
+                <sequence>
+                    <element name="favorite-list" type="xsd1:ServicelistFavoriteListType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="favorite-item" type="xsd1:ServicelistFavoriteItemType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="lcn" type="xsd1:ServicelistLcnType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServicelistTunerType">
+                <attribute name="Frontend" type="string"/>
+                <attribute name="NITId" type="string"/>
+                <attribute name="NITVersion" type="string"/>
+                <attribute name="Oid" type="string"/>
+                <attribute name="Satellite" type="string"/>
+                <attribute name="Tid" type="string"/>
+                <attribute name="TunerId" type="string"/>
+                <attribute name="TunerUuid" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbSTunerType">
+                <attribute name="Band" type="string"/>
+                <attribute name="CodeRate" type="string"/>
+                <attribute name="Frequency" type="string"/>
+                <attribute name="Modulation" type="string"/>
+                <attribute name="Polarization" type="string"/>
+                <attribute name="SatelliteId" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="SymbolRate" type="string"/>
+                <attribute name="TunerId" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbS2TunerType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="ModulationCoding" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="FrameLength" type="string"/>
+                <attribute name="Pilots" type="string"/>
+                <attribute name="SymbolRate" type="string"/>
+                <attribute name="Polarization" type="string"/>
+                <attribute name="Band" type="string"/>
+                <attribute name="SatelliteId" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbCTunerType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="Modulation" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="SymbolRate" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbC2TunerType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="Bandwidth" type="string"/>
+                <attribute name="Constellation" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="DataSliceId" type="string"/>
+                <attribute name="NumberDataSliceIds" type="string"/>
+                <attribute name="PlpId" type="string"/>
+                <attribute name="NumberPlps" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbTTunerType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="Bandwidth" type="string"/>
+                <attribute name="Constellation" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="HierarchicalModulation" type="string"/>
+                <attribute name="HierarchicalPriority" type="string"/>
+                <attribute name="CodeRateHighPriority" type="string"/>
+                <attribute name="CodeRateLowPriority" type="string"/>
+                <attribute name="FftMode" type="string"/>
+                <attribute name="Guard" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbT2TunerType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="Bandwidth" type="string"/>
+                <attribute name="Constellation" type="string"/>
+                <attribute name="SpectrumInversion" type="string"/>
+                <attribute name="CodeRate" type="string"/>
+                <attribute name="Papr" type="string"/>
+                <attribute name="FftMode" type="string"/>
+                <attribute name="Miso" type="string"/>
+                <attribute name="Guard" type="string"/>
+                <attribute name="PilotPattern" type="string"/>
+                <attribute name="PlpId" type="string"/>
+                <attribute name="NumberPlps" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbIpTunerType">
+                <attribute name="NetworkUrl" type="string"/>
+                <attribute name="ExtraData" type="string"/>
+            </complexType>
+            <complexType name="ServicelistServiceType">
+                <attribute name="CreationDate" type="string"/>
+                <attribute name="Encrypted" type="string"/>
+                <attribute name="EngineAutoStart" type="string"/>
+                <attribute name="EpgService" type="string"/>
+                <attribute name="EventInfo" type="string"/>
+                <attribute name="GamingMode" type="string"/>
+                <attribute name="Hdtv" type="string"/>
+                <attribute name="IsReceivable" type="string"/>
+                <attribute name="MediaType" type="string"/>
+                <attribute name="ModificationDate" type="string"/>
+                <attribute name="Name" type="string"/>
+                <attribute name="ParentalLock" type="string"/>
+                <attribute name="Pid" type="string"/>
+                <attribute name="Selectable" type="string"/>
+                <attribute name="ShortName" type="string"/>
+                <attribute name="SoundSelection" type="string"/>
+                <attribute name="ThumbUrl" type="string"/>
+                <attribute name="Type" type="string"/>
+                <attribute name="Uri" type="string"/>
+                <attribute name="Uuid" type="string"/>
+                <attribute name="Visible" type="string"/>
+                <attribute name="VolumeCorrection" type="string"/>
+            </complexType>
+            <complexType name="ServicelistDvbServiceType">
+                <attribute name="CiPlus" type="string"/>
+                <attribute name="CiPlusBrandIds" type="string"/>
+                <attribute name="CiPlusFreeCiMode" type="string"/>
+                <attribute name="CiPlusTimestamp" type="string"/>
+                <attribute name="CiSlotConfig" type="string"/>
+                <attribute name="DefaultAuth" type="string"/>
+                <attribute name="DefaultAuthPrio" type="string"/>
+                <attribute name="ExternalData" type="string"/>
+                <attribute name="ServiceId" type="string"/>
+                <attribute name="Sid" type="string"/>
+                <attribute name="TtxCharEnc" type="string"/>
+                <attribute name="TtxPreviewPage" type="string"/>
+                <attribute name="TtxSubtitlePage" type="string"/>
+                <attribute name="TunerId" type="string"/>
+                <attribute name="VirtualSid" type="string"/>
+            </complexType>
+            <complexType name="ServicelistAnalogServiceType">
+                <attribute name="Frequency" type="string"/>
+                <attribute name="ColorSystem" type="string"/>
+                <attribute name="BroadcastSystem" type="string"/>
+                <attribute name="CniCode" type="string"/>
+                <attribute name="TtxPreviewPage" type="string"/>
+                <attribute name="TtxSubtitlePage" type="string"/>
+                <attribute name="TtxCharEnc" type="string"/>
+                <attribute name="AutoTVStandard" type="string"/>
+            </complexType>
+            <complexType name="ServicelistFavoriteListType">
+                <attribute name="Attributes" type="string"/>
+                <attribute name="BATId" type="string"/>
+                <attribute name="BATVersion" type="string"/>
+                <attribute name="CreationDate" type="string"/>
+                <attribute name="Creator" type="string"/>
+                <attribute name="MaxChannelNumber" type="string"/>
+                <attribute name="ModificationDate" type="string"/>
+                <attribute name="NITId" type="string"/>
+                <attribute name="NITVersion" type="string"/>
+                <attribute name="Name" type="string"/>
+                <attribute name="NetworkId" type="string"/>
+                <attribute name="Pid" type="string"/>
+                <attribute name="SDTVersion" type="string"/>
+                <attribute name="Uuid" type="string"/>
+            </complexType>
+            <complexType name="ServicelistFavoriteItemType">
+                <attribute name="Active" type="string"/>
+                <attribute name="Attribute" type="string"/>
+                <attribute name="ChannelNum" type="string"/>
+                <attribute name="FavoriteId" type="string"/>
+                <attribute name="Id" type="string"/>
+                <attribute name="OriginalFavoriteId" type="string"/>
+                <attribute name="Selectable" type="string"/>
+                <attribute name="ServiceId" type="string"/>
+                <attribute name="ServiceName" type="string"/>
+                <attribute name="Visible" type="string"/>
+            </complexType>
+            <complexType name="ServicelistLcnType">
+                <attribute name="FavoriteId" type="string"/>
+                <attribute name="Id" type="string"/>
+                <attribute name="Lcn" type="string"/>
+                <attribute name="ServiceId" type="string"/>
+            </complexType>
+            <complexType name="OpSettingsType">
+                <sequence>
+                    <element name="OperatroProfile" type="xsd1:OperatroProfileType" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="OperatroProfileType">
+                <sequence>
+                    <element name="OpId" type="string"/>
+                    <element name="BarkerChannel" type="xsd1:BarkerChannelType"/>
+                </sequence>
+            </complexType>
+            <complexType name="BarkerChannelType">
+                <sequence>
+                    <element name="SID" type="string"/>
+                    <element name="TSID" type="string"/>
+                    <element name="ONID" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="NetworkConfigurationType">
+                <sequence>
+                    <element name="SupportedNetwork" type="xsd1:SupportedNetworkType" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkType">
+                <sequence>
+                    <element name="Frontend" type="xsd1:SupportedNetworkFrontendType"/>
+                    <element name="Nit" type="xsd1:SupportedNetworkNitType"/>
+                    <element name="HomingChannels" type="xsd1:SupportedNetworkHomingChannelsType" minOccurs="0"/>
+                    <element name="ChannelNumbering" type="xsd1:SupportedNetworkChannelNumberingType" minOccurs="0"/>
+                    <element name="BATSPS" type="xsd1:SupportedNetworkBATSPSType" minOccurs="0"/>
+                    <element name="Options" type="xsd1:SupportedNetworkOptionsType"/>
+                    <element name="CellIds" type="xsd1:SupportedNetworkCellIdsType"/>
+                </sequence>
+                <attribute name="id" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkFrontendType">
+                <attribute name="type" type="string"/>
+                <attribute name="satellite" type="string" use="optional"/>
+            </complexType>
+            <complexType name="SupportedNetworkHomingChannelsType">
+                <sequence>
+                    <element name="HomingChannel" type="xsd1:SupportedNetworkHomingChannelType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkHomingChannelType">
+                <sequence>
+                    <element name="Frequency" type="xsd1:SupportedNetworkFrequencyType"/>
+                    <element name="Symbolrate" type="xsd1:SupportedNetworkSymbolrateType" minOccurs="0"/>
+                    <element name="Band" type="xsd1:SupportedNetworkBandType" minOccurs="0"/>
+                    <element name="Polarization" type="xsd1:SupportedNetworkPolarizationType" minOccurs="0"/>
+                    <element name="Modulation" type="xsd1:SupportedNetworkModulationType" minOccurs="0"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkFrequencyType">
+                <attribute name="unit" type="string"/>
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkSymbolrateType">
+                <attribute name="unit" type="string"/>
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkBandType">
+                <attribute name="unit" type="string"/>
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkPolarizationType">
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkModulationType">
+                <attribute name="type" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkNitType">
+                <attribute name="id" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkChannelNumberingType">
+                <sequence>
+                    <element name="TargetRegion" type="xsd1:SupportedNetworkTargetRegionType"/>
+                    <element name="Country" type="xsd1:SupportedNetworkCountryType"/>
+                    <element name="PrimaryRegion" type="xsd1:SupportedNetworkTargetPrimaryRegionType" minOccurs="0"/>
+                    <element name="SecondaryRegion" type="xsd1:SupportedNetworkTargetSecondaryRegionType" minOccurs="0"/>
+                    <element name="TertiaryRegion" type="xsd1:SupportedNetworkTargetTertiaryRegionType" minOccurs="0"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkTargetRegionType">
+                <attribute name="depth" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkTargetPrimaryRegionType">
+                <attribute name="code" type="string"/>
+                <attribute name="name" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkTargetSecondaryRegionType">
+                <attribute name="code" type="string"/>
+                <attribute name="name" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkTargetTertiaryRegionType">
+                <attribute name="code" type="string"/>
+                <attribute name="name" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkCountryType">
+                <attribute name="code" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkBATSPSType">
+                <sequence>
+                    <element name="BouquetId" type="xsd1:SupportedNetworkBouquetIdType"/>
+                    <element name="BouquetName" type="xsd1:SupportedNetworkCountryType"/>
+                    <element name="BatVersion" type="xsd1:SupportedNetworkCountryType"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkBouquetIdType">
+                <attribute name="id" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkBouquetNameType">
+                <attribute name="name" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkBatVersionType">
+                <attribute name="version" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkOptionsType">
+                <sequence>
+                    <element name="Option" type="xsd1:SupportedNetworkOptionType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkOptionType">
+                <attribute name="key" type="string"/>
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SupportedNetworkCellIdsType">
+                <sequence>
+                    <element name="CellId" type="xsd1:SupportedNetworkCellIdType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="SupportedNetworkCellIdType">
+                <attribute name="value" type="string"/>
+            </complexType>
+            <complexType name="SyncRequestType">
+                <sequence>
+                    <element name="fcid" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="LockAllType">
+                <attribute name="pin" type="string"/>
+                <attribute name="lockAll" type="string"/>
+                <attribute name="lockAllDaily" type="string"/>
+                <attribute name="lockAllDailyStart" type="string"/>
+                <attribute name="lockAllDailyEnd" type="string"/>
+            </complexType>
+            <complexType name="LockAgeRelatedType">
+                <attribute name="pin" type="string"/>
+                <attribute name="lockAgeRelated" type="string"/>
+                <attribute name="lockAge" type="string"/>
+            </complexType>
+            <complexType name="LockSingleType">
+                <attribute name="pin" type="string"/>
+                <attribute name="lockSingle" type="string"/>
+                <attribute name="lockAll" type="string"/>
+                <attribute name="unlockAll" type="string"/>
+            </complexType>
+            <complexType name="LockParametersType">
+                <sequence>
+                    <element name="LockAll" type="xsd1:LockAllType" minOccurs="0" maxOccurs="1"/>
+                    <element name="LockAgeRelated" type="xsd1:LockAgeRelatedType" minOccurs="0" maxOccurs="1"/>
+                    <element name="LockSingle" type="xsd1:LockSingleType" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+            <complexType name="SelectorsType">
+                <sequence>
+                    <element name="Selector" type="string" maxOccurs="16"/>
+                </sequence>
+            </complexType>
+            <complexType name="UpgradeFeatureDeviceType">
+                <sequence>
+                    <element name="Id" type="string"/>
+                    <element name="Type" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="UpgradeFeatureSetType">
+                <sequence>
+                    <element name="Name" type="string"/>
+                    <element name="ArticleNumber" type="string"/>
+                    <element name="ActivationCode" type="string" minOccurs="0"/>
+                    <element name="DeviceId" type="string" minOccurs="0"/>
+                </sequence>
+            </complexType>
+            <complexType name="UpgradeFeatureStateType">
+                <sequence>
+                    <element name="Name" type="string"/>
+                    <element name="State" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ClientRequestType">
+                <complexContent>
+                    <extension base="xsd1:SyncRequestType">
+                        <sequence>
+                            <element name="ClientId" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SyncResponseType">
+                <sequence>
+                    <element name="fcid" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ClientResponseType">
+                <complexContent>
+                    <extension base="xsd1:SyncResponseType">
+                        <sequence>
+                            <element name="ClientId" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetVolumeRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetVolumeRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Value">
+                                <simpleType>
+                                    <restriction base="integer">
+                                        <minInclusive value="0"/>
+                                        <maxInclusive value="999999"/>
+                                    </restriction>
+                                </simpleType>
+                            </element>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="VolumeResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Value" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetMuteRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetMuteRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Value">
+                                <simpleType>
+                                    <restriction base="integer">
+                                        <minInclusive value="0"/>
+                                        <maxInclusive value="1"/>
+                                    </restriction>
+                                </simpleType>
+                            </element>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="MuteResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Value" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="StandbyRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Value" type="xsd1:StandbyType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="StandbyResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Value" type="xsd1:StandbyType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ProgramTimerRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Device" type="xsd1:DeviceType"/>
+                            <element name="RecordingType" type="xsd1:RecordingType"/>
+                            <element name="Locator" type="string"/>
+                            <element name="Timer" type="xsd1:TimerType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ProgramTimerResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="integer"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetCurrentPlaybackRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Player" type="string" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetCurrentPlaybackResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Mode" type="string"/>
+                            <element name="Locator" type="string" minOccurs="0"/>
+                            <element name="MediaItemUuid" type="string" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetCurrentStatusResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Power" type="string"/>
+                            <element name="HdrPlayerState" type="string"/>
+                            <element name="HdrSpeed" type="string"/>
+                            <element name="SystemLocked" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetDeviceDataResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Chassis" type="string"/>
+                            <element name="SW-Version" type="string"/>
+                            <element name="MAC-Address" type="string"/>
+                            <element name="MAC-Address-LAN" type="string"/>
+                            <element name="MAC-Address-WLAN" type="string"/>
+                            <element name="Location" type="string"/>
+                            <element name="TV-SW-Version" type="string" minOccurs="0"/>
+                            <element name="TV-Earom-Version" type="string" minOccurs="0"/>
+                            <element name="DVB-SW-Version" type="string" minOccurs="0"/>
+                            <element name="DVB-Boot-Version" type="string" minOccurs="0"/>
+                            <element name="DVB-Earom-Version" type="string" minOccurs="0"/>
+                            <element name="NetworkHostName" type="string"/>
+                            <element name="StreamingServerName" type="string"/>
+                            <element name="OwnVolumeId" type="string"/>
+                            <element name="MAC-Address-BT" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetValueFromBrowserJSRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Key" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetValueFromBrowserJSResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Key" type="string"/>
+                            <element name="Value" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetBrowserJSChangeListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetBrowserJSChangeListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ChangeList" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetValueToBrowserJSRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Key" type="string"/>
+                            <element name="Value" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetValueToBrowserJSResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetChannelListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ChannelListView" type="string"/>
+                            <element name="QueryParameters" type="xsd1:QueryParametersType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetChannelListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ChannelListView" type="string"/>
+                            <element name="ChannelListName" type="string"/>
+                            <element name="AncestorUuid" type="string"/>
+                            <element name="ItemClass" type="string"/>
+                            <element name="ResultItemFragment" type="xsd1:ResultItemFragmentType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetMediaItemRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediaItemReference" type="xsd1:MediaItemReferenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetMediaItemResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultItem" type="xsd1:MediaItemInfoBundle"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetMediaEventRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediaEventReference" type="xsd1:MediaEventReferenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetMediaEventResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="MediaEvent" type="xsd1:MediaEventType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetNowNextEventRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Player" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetNowNextEventResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediaItemReference" type="xsd1:MediaItemReferenceType"/>
+                            <element name="MediaEventReference" type="xsd1:MediaEventReferenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ZapToApplicationRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Application" type="string"/>
+                            <element name="ContentURI" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ZapToApplicationResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ZapToMediaRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Player" type="string"/>
+                            <element name="Locator" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ZapToMediaResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPrepareType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Player" type="string"/>
+                            <element name="Locator" type="anyURI"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPrepareResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                            <element name="SubscriptionURI" type="anyURI"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerReleasePreparedType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                            <element name="Locator" type="anyURI"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerReleasePreparedResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType"/>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPlayType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPlayResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPauseType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerPauseResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerResumeType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerResumeResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerStopType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerStopResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerSetSpeedType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                            <element name="Speed" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerSetSpeedResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerSeekToType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="MediumId" type="xsd1:PlayerMediumIdType"/>
+                            <element name="AbsolutePosition" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayerSeekToResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="PlayerStatus" type="xsd1:HalfPlayerStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <simpleType name="AccessStatusType">
+                <restriction base="string">
+                    <enumeration value="Pending"/>
+                    <enumeration value="Denied"/>
+                    <enumeration value="Accepted"/>
+                </restriction>
+            </simpleType>
+            <complexType name="RequestAccessRequestType">
+                <complexContent>
+                    <extension base="xsd1:SyncRequestType">
+                        <sequence>
+                            <element name="ClientId" type="string" minOccurs="0"/>
+                            <element name="DeviceType" type="string"/>
+                            <element name="DeviceName" type="string" minOccurs="0"/>
+                            <element name="DeviceUUID" type="string" minOccurs="0"/>
+                            <element name="RequesterName" type="string" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RequestAccessResponseType">
+                <complexContent>
+                    <extension base="xsd1:SyncResponseType">
+                        <sequence>
+                            <element name="ClientId" type="string" minOccurs="0"/>
+                            <element name="AccessStatus" type="xsd1:AccessStatusType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="InjectRCKeyRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="InputEventSequence" type="xsd1:RCKeyEventSequenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="InjectRCKeyResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="InjectKeyboardKeyRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="InputEventSequence" type="xsd1:KeyboardKeyEventSequenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="InjectKeyboardKeyResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetActionFieldRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="InputText" type="string"/>
+                            <element name="IsTimeout" type="string" minOccurs="0"/>
+                            <element name="Selectors" type="xsd1:SelectorsType" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetActionFieldResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                            <element name="RequestId" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetActionFieldRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="RequestId" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetActionFieldResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Status" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetFeatureRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Name" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetFeatureResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Name" type="string"/>
+                            <element name="Status" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ActivateFeaturePackageRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Package" type="string" minOccurs="0"/>
+                            <element name="ActivationCode" type="string" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ActivateFeaturePackageResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Package" type="string" minOccurs="0"/>
+                            <element name="ActivationCode" type="string" minOccurs="0"/>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="DeactivateFeaturePackageRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Package" type="string" minOccurs="0"/>
+                            <element name="ActivationCode" type="string" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="DeactivateFeaturePackageResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Package" type="string" minOccurs="0"/>
+                            <element name="ActivationCode" type="string" minOccurs="0"/>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetUpgradeInfoRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetUpgradeInfoResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="UpgradeDefinitionVersion" type="string"/>
+                            <element name="ActivationKeyFingerprint" type="string"/>
+                            <element name="Device" type="xsd1:UpgradeFeatureDeviceType" minOccurs="0" maxOccurs="unbounded"/>
+                            <element name="Upgrade" type="xsd1:UpgradeFeatureSetType" minOccurs="0" maxOccurs="unbounded"/>
+                            <element name="Feature" type="xsd1:UpgradeFeatureStateType" minOccurs="0" maxOccurs="unbounded"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>            
+            <complexType name="GetListOfChannelListsRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="QueryParameters" type="xsd1:QueryParametersType"/>
+                            <element minOccurs="0" name="AdditionalParameters" type="xsd1:AdditionalParametersType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetListOfChannelListsResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultItemChannelLists" type="xsd1:ResultItemChannelListsType"/>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="AddFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Name" type="string"/>
+                            <element name="AdditionalAttributes" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="AddFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RemoveFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ViewName" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RemoveFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RenameFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ListViewName" type="string"/>
+                            <element name="NewName" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RenameFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="LocatorType">
+                <attribute name="Locator" type="string"/>
+            </complexType>
+            <complexType name="ViewNameType">
+                <sequence>
+                    <element name="ViewName" type="string"/>
+                </sequence>
+            </complexType>
+            <complexType name="AddServicesFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ViewName" type="string"/>
+                            <element name="LocatorSequence" type="xsd1:LocatorSequenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="AddServicesFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RemoveServicesFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ViewName" type="string"/>
+                            <element name="NumBegin" type="string"/>
+                            <element name="NumEnd" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="RemoveServicesFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="MoveServicesFavoriteListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ViewName" type="string"/>
+                            <element name="NumBegin" type="string"/>
+                            <element name="NumEnd" type="string"/>
+                            <element name="NumNewPosition" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="MoveServicesFavoriteListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ImportServiceListsRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Data" type="xsd1:ServicelistDataType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ImportServiceListsResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ExportServiceListsRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ExportServiceListsResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                            <element name="Data" type="xsd1:ServicelistDataType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="AddFavoriteListFromVirtualRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="ViewNameSequence" type="xsd1:ViewNameSequenceType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="AddFavoriteListFromVirtualResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetListOfVirtualListsRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="QueryParameters" type="xsd1:QueryParametersType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetListOfVirtualListsResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultItemChannelLists" type="xsd1:ResultItemChannelListsType"/>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetDRPlusArchiveRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="QueryParameters" type="xsd1:QueryParametersType"/>
+                            <element minOccurs="0" name="VolumeId" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetDRPlusArchiveResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultItemDRPlusFragment" type="xsd1:ResultItemDRPlusFragmentType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetVolumesRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="QueryParameters" type="xsd1:QueryParametersType"/>
+                            <element minOccurs="0" name="AdditionalParameters" type="xsd1:AdditionalParametersType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetVolumesResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultVolumesFragment" type="xsd1:ResultVolumesFragmentType"/>
+                        </sequence>
+                        <attribute name="totalResults" type="integer"/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayMultiroomClientIdsType">
+                <sequence>
+                    <element name="MultiroomClientId" type="xsd1:PlayMultiroomClientIdType" minOccurs="0" maxOccurs="2"/>
+                </sequence>
+            </complexType>
+            <complexType name="PlayMultiroomClientIdType">
+                <attribute name="id" type="string"/>
+            </complexType>
+            <complexType name="PlayMultiroomRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Locator" type="string"/>
+                            <element name="AncestorUuid" type="string"/>
+                            <element name="MultiroomClientIds" type="xsd1:PlayMultiroomClientIdsType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PlayMultiroomResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetSettingsRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetSettingsResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetSettingRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="SetSettingResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ParentalLockRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="LockParameters" type="xsd1:LockParametersType"/>
+                            <element name="LocatorSequence" type="xsd1:LocatorSequenceType" minOccurs="0"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ParentalLockResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetParentalLockRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetParentalLockResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="lockAll" type="string"/>
+                            <element name="lockAllDaily" type="string"/>
+                            <element name="lockAllDailyStart" type="string"/>
+                            <element name="lockAllDailyEnd" type="string"/>
+                            <element name="lockAgeRelated" type="string"/>
+                            <element name="lockAge" type="string"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetTimerListRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="GetTimerListResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="ResultTimerListFragment" type="xsd1:ResultTimerListFragmentType"/>
+                        </sequence>
+                        <attribute name="totalResults" type="integer"/>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="CreateIteratorRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="TableName" type="string"/>
+                            <element name="Type" type="string"/>
+                            <element name="Selections" type="xsd1:IteratorSelectionsType"/>
+                            <element name="Fields" type="xsd1:IteratorFieldsType"/>
+                            <element name="Orders" type="xsd1:IteratorOrdersType"/>
+                            <element minOccurs="0" maxOccurs="1" name="NotifyUpdate" type="string" default="yes"/>
+                            <element minOccurs="0" maxOccurs="1" name="QueryParameters" type="xsd1:QueryParametersType"/>
+                            <element minOccurs="0" maxOccurs="1" name="SeekToContentParameters" type="xsd1:SeekToContentParametersType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="CreateIteratorResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Result" type="string"/>
+                            <element name="Id" type="string"/>
+                            <element name="Rows" type="xsd1:IteratorRowsType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="CloseIteratorRequestType">
+                <complexContent>
+                    <extension base="xsd1:ClientRequestType">
+                        <sequence>
+                            <element name="Ids" type="xsd1:IteratorIdsType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="CloseIteratorResponseType">
+                <complexContent>
+                    <extension base="xsd1:ClientResponseType">
+                        <sequence>
+                            <element name="Results" type="xsd1:IteratorResultsType"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+
+            <element name="RequestAccess" type="xsd1:RequestAccessRequestType"/>
+            <element name="RequestAccessResponse" type="xsd1:RequestAccessResponseType"/>
+
+            <element name="GetVolume" type="xsd1:GetVolumeRequestType"/>
+            <element name="SetVolume" type="xsd1:SetVolumeRequestType"/>
+            <element name="VolumeResponse" type="xsd1:VolumeResponseType"/>
+            <element name="GetMute" type="xsd1:GetMuteRequestType"/>
+            <element name="SetMute" type="xsd1:SetMuteRequestType"/>
+            <element name="MuteResponse" type="xsd1:MuteResponseType"/>
+            <element name="Standby" type="xsd1:StandbyRequestType"/>
+            <element name="StandbyResponse" type="xsd1:StandbyResponseType"/>
+            <element name="ProgramTimer" type="xsd1:ProgramTimerRequestType"/>
+            <element name="ProgramTimerResponse" type="xsd1:ProgramTimerResponseType"/>
+            <element name="GetDeviceData" type="xsd1:ClientRequestType"/>
+            <element name="GetDeviceDataResponse" type="xsd1:GetDeviceDataResponseType"/>
+            <element name="GetCurrentPlayback" type="xsd1:GetCurrentPlaybackRequestType"/>
+            <element name="GetCurrentPlaybackResponse" type="xsd1:GetCurrentPlaybackResponseType"/>
+            <element name="GetCurrentStatus" type="xsd1:ClientRequestType"/>
+            <element name="GetCurrentStatusResponse" type="xsd1:GetCurrentStatusResponseType"/>
+
+            <element name="GetChannelList" type="xsd1:GetChannelListRequestType"/>
+            <element name="GetChannelListResponse" type="xsd1:GetChannelListResponseType"/>
+            <element name="GetListOfChannelLists" type="xsd1:GetListOfChannelListsRequestType"/>
+            <element name="GetListOfChannelListsResponse" type="xsd1:GetListOfChannelListsResponseType"/>
+
+            <element name="AddFavoriteList" type="xsd1:AddFavoriteListRequestType"/>
+            <element name="AddFavoriteListResponse" type="xsd1:AddFavoriteListResponseType"/>
+            <element name="RemoveFavoriteList" type="xsd1:RemoveFavoriteListRequestType"/>
+            <element name="RemoveFavoriteListResponse" type="xsd1:RemoveFavoriteListResponseType"/>
+            <element name="RenameFavoriteList" type="xsd1:RenameFavoriteListRequestType"/>
+            <element name="RenameFavoriteListResponse" type="xsd1:RenameFavoriteListResponseType"/>
+            <element name="AddServicesFavoriteList" type="xsd1:AddServicesFavoriteListRequestType"/>
+            <element name="AddServicesFavoriteListResponse" type="xsd1:AddServicesFavoriteListResponseType"/>
+            <element name="RemoveServicesFavoriteList" type="xsd1:RemoveServicesFavoriteListRequestType"/>
+            <element name="RemoveServicesFavoriteListResponse" type="xsd1:RemoveServicesFavoriteListResponseType"/>
+            <element name="MoveServicesFavoriteList" type="xsd1:MoveServicesFavoriteListRequestType"/>
+            <element name="MoveServicesFavoriteListResponse" type="xsd1:MoveServicesFavoriteListResponseType"/>
+
+            <element name="AddFavoriteListFromVirtual" type="xsd1:AddFavoriteListFromVirtualRequestType"/>
+            <element name="AddFavoriteListResponseFromVirtual" type="xsd1:AddFavoriteListFromVirtualResponseType"/>
+            <element name="GetListOfVirtualLists" type="xsd1:GetListOfVirtualListsRequestType"/>
+            <element name="GetListOfVirtualListsResponse" type="xsd1:GetListOfVirtualListsResponseType"/>
+
+            <element name="ImportServiceLists" type="xsd1:ImportServiceListsRequestType"/>
+            <element name="ImportServiceListsResponse" type="xsd1:ImportServiceListsResponseType"/>
+            <element name="ExportServiceLists" type="xsd1:ExportServiceListsRequestType"/>
+            <element name="ExportServiceListsResponse" type="xsd1:ExportServiceListsResponseType"/>
+
+            <element name="GetDRPlusArchive" type="xsd1:GetDRPlusArchiveRequestType"/>
+            <element name="GetDRPlusArchiveResponse" type="xsd1:GetDRPlusArchiveResponseType"/>
+
+            <element name="GetVolumes" type="xsd1:GetVolumesRequestType"/>
+            <element name="GetVolumesResponse" type="xsd1:GetVolumesResponseType"/>
+
+            <element name="PlayMultiroom" type="xsd1:PlayMultiroomRequestType"/>
+            <element name="PlayMultiroomResponse" type="xsd1:PlayMultiroomResponseType"/>
+
+            <element name="GetValueFromBrowserJS" type="xsd1:GetValueFromBrowserJSRequestType"/>
+            <element name="GetValueFromBrowserJSResponse" type="xsd1:GetValueFromBrowserJSResponseType"/>
+            <element name="GetBrowserJSChangeList" type="xsd1:GetBrowserJSChangeListRequestType"/>
+            <element name="GetBrowserJSChangeListResponse" type="xsd1:GetBrowserJSChangeListResponseType"/>
+            <element name="SetValueToBrowserJS" type="xsd1:SetValueToBrowserJSRequestType"/>
+            <element name="SetValueToBrowserJSResponse" type="xsd1:SetValueToBrowserJSResponseType"/>
+
+            <element name="GetCurrentEvent" type="xsd1:GetNowNextEventRequestType"/>
+            <element name="GetCurrentEventResponse" type="xsd1:GetNowNextEventResponseType"/>
+            <element name="GetNextEvent" type="xsd1:GetNowNextEventRequestType"/>
+            <element name="GetNextEventResponse" type="xsd1:GetNowNextEventResponseType"/>
+
+            <element name="GetMediaItem" type="xsd1:GetMediaItemRequestType"/>
+            <element name="GetMediaItemResponse" type="xsd1:GetMediaItemResponseType"/>
+            <element name="GetMediaEvent" type="xsd1:GetMediaEventRequestType"/>
+            <element name="GetMediaEventResponse" type="xsd1:GetMediaEventResponseType"/>
+
+            <element name="PlayerPrepare" type="xsd1:PlayerPrepareType"/>
+            <element name="PlayerPrepareResponse" type="xsd1:PlayerPrepareResponseType"/>
+            <element name="PlayerReleasePrepared" type="xsd1:PlayerReleasePreparedType"/>
+            <element name="PlayerReleasePreparedResponse" type="xsd1:PlayerReleasePreparedResponseType"/>
+            <element name="PlayerPlay" type="xsd1:PlayerPlayType"/>
+            <element name="PlayerPlayResponse" type="xsd1:PlayerPlayResponseType"/>
+            <element name="PlayerPause" type="xsd1:PlayerPauseType"/>
+            <element name="PlayerPauseResponse" type="xsd1:PlayerPauseResponseType"/>
+            <element name="PlayerResume" type="xsd1:PlayerResumeType"/>
+            <element name="PlayerResumeResponse" type="xsd1:PlayerResumeResponseType"/>
+            <element name="PlayerStop" type="xsd1:PlayerStopType"/>
+            <element name="PlayerStopResponse" type="xsd1:PlayerStopResponseType"/>
+            <element name="PlayerSetSpeed" type="xsd1:PlayerSetSpeedType"/>
+            <element name="PlayerSetSpeedResponse" type="xsd1:PlayerSetSpeedResponseType"/>
+            <element name="PlayerSeekTo" type="xsd1:PlayerSeekToType"/>
+            <element name="PlayerSeekToResponse" type="xsd1:PlayerSeekToResponseType"/>
+
+            <element name="ZapToApplication" type="xsd1:ZapToApplicationRequestType"/>
+            <element name="ZapToApplicationResponse" type="xsd1:ZapToApplicationResponseType"/>
+            <element name="ZapToMedia" type="xsd1:ZapToMediaRequestType"/>
+            <element name="ZapToMediaResponse" type="xsd1:ZapToMediaResponseType"/>
+
+            <element name="InjectRCKey" type="xsd1:InjectRCKeyRequestType"/>
+            <element name="InjectRCKeyResponse" type="xsd1:InjectRCKeyResponseType"/>
+
+            <element name="InjectKeyboardKey" type="xsd1:InjectKeyboardKeyRequestType"/>
+            <element name="InjectKeyboardKeyResponse" type="xsd1:InjectKeyboardKeyResponseType"/>
+
+            <element name="SetActionField" type="xsd1:SetActionFieldRequestType"/>
+            <element name="SetActionFieldResponse" type="xsd1:SetActionFieldResponseType"/>
+            
+            <element name="GetActionField" type="xsd1:GetActionFieldRequestType"/>
+            <element name="GetActionFieldResponse" type="xsd1:GetActionFieldResponseType"/>
+
+            <element name="GetFeature" type="xsd1:GetFeatureRequestType"/>
+            <element name="GetFeatureResponse" type="xsd1:GetFeatureResponseType"/>
+            
+            <element name="ActivateFeaturePackage" type="xsd1:ActivateFeaturePackageRequestType"/>
+            <element name="ActivateFeaturePackageResponse" type="xsd1:ActivateFeaturePackageResponseType"/>
+            <element name="DeactivateFeaturePackage" type="xsd1:DeactivateFeaturePackageRequestType"/>
+            <element name="DeactivateFeaturePackageResponse" type="xsd1:DeactivateFeaturePackageResponseType"/>
+            <element name="GetUpgradeInfo" type="xsd1:GetUpgradeInfoRequestType"/>
+            <element name="GetUpgradeInfoResponse" type="xsd1:GetUpgradeInfoResponseType"/>
+
+            <element name="GetSettings" type="xsd1:GetSettingsRequestType"/>
+            <element name="GetSettingsResponse" type="xsd1:GetSettingsResponseType"/>
+            <element name="SetSetting" type="xsd1:SetSettingRequestType"/>
+            <element name="SetSettingResponse" type="xsd1:SetSettingResponseType"/>
+
+            <element name="ParentalLock" type="xsd1:ParentalLockRequestType"/>
+            <element name="ParentalLockResponse" type="xsd1:ParentalLockResponseType"/>
+            <element name="GetParentalLock" type="xsd1:GetParentalLockRequestType"/>
+            <element name="GetParentalLockResponse" type="xsd1:GetParentalLockResponseType"/>
+
+            <element name="GetTimerList" type="xsd1:GetTimerListRequestType"/>
+            <element name="GetTimerListResponse" type="xsd1:GetTimerListResponseType"/>
+            
+            <element name="CreateIterator" type="xsd1:CreateIteratorRequestType"/>
+            <element name="CreateIteratorResponse" type="xsd1:CreateIteratorResponseType"/>
+            
+            <element name="CloseIterator" type="xsd1:CloseIteratorRequestType"/>
+            <element name="CloseIteratorResponse" type="xsd1:CloseIteratorResponseType"/>
+
+        </schema>
+    </types>
+
+    <message name="RequestAccess">
+        <part name="body" element="xsd1:RequestAccess"/>
+    </message>
+
+    <message name="RequestAccessResponse">
+        <part name="body" element="xsd1:RequestAccessResponse"/>
+    </message>
+
+    <message name="GetChannelList">
+        <part name="body" element="xsd1:GetChannelList"/>
+    </message>
+
+    <message name="GetChannelListResponse">
+        <part name="body" element="xsd1:GetChannelListResponse"/>
+    </message>
+
+    <message name="GetCurrentEvent">
+        <part name="body" element="xsd1:GetCurrentEvent"/>
+    </message>
+
+    <message name="GetCurrentEventResponse">
+        <part name="body" element="xsd1:GetCurrentEventResponse"/>
+    </message>
+
+    <message name="GetNextEvent">
+        <part name="body" element="xsd1:GetNextEvent"/>
+    </message>
+
+    <message name="GetNextEventResponse">
+        <part name="body" element="xsd1:GetNextEventResponse"/>
+    </message>
+
+    <message name="GetMediaItem">
+        <part name="body" element="xsd1:GetMediaItem"/>
+    </message>
+
+    <message name="GetMediaItemResponse">
+        <part name="body" element="xsd1:GetMediaItemResponse"/>
+    </message>
+
+    <message name="GetMediaEvent">
+        <part name="body" element="xsd1:GetMediaEvent"/>
+    </message>
+
+    <message name="GetMediaEventResponse">
+        <part name="body" element="xsd1:GetMediaEventResponse"/>
+    </message>
+
+    <message name="PlayerPrepare">
+        <part name="body" element="xsd1:PlayerPrepare"/>
+    </message>
+
+    <message name="PlayerPrepareResponse">
+        <part name="body" element="xsd1:PlayerPrepareResponse"/>
+    </message>
+
+    <message name="PlayerReleasePrepared">
+        <part name="body" element="xsd1:PlayerReleasePrepared"/>
+    </message>
+
+    <message name="PlayerReleasePreparedResponse">
+        <part name="body" element="xsd1:PlayerReleasePreparedResponse"/>
+    </message>
+
+    <message name="PlayerPlay">
+        <part name="body" element="xsd1:PlayerPlay"/>
+    </message>
+
+    <message name="PlayerPlayResponse">
+        <part name="body" element="xsd1:PlayerPlayResponse"/>
+    </message>
+
+    <message name="PlayerPause">
+        <part name="body" element="xsd1:PlayerPause"/>
+    </message>
+
+    <message name="PlayerPauseResponse">
+        <part name="body" element="xsd1:PlayerPauseResponse"/>
+    </message>
+
+    <message name="PlayerResume">
+        <part name="body" element="xsd1:PlayerResume"/>
+    </message>
+
+    <message name="PlayerResumeResponse">
+        <part name="body" element="xsd1:PlayerResumeResponse"/>
+    </message>
+
+    <message name="PlayerStop">
+        <part name="body" element="xsd1:PlayerStop"/>
+    </message>
+
+    <message name="PlayerStopResponse">
+        <part name="body" element="xsd1:PlayerStopResponse"/>
+    </message>
+
+    <message name="PlayerSetSpeed">
+        <part name="body" element="xsd1:PlayerSetSpeed"/>
+    </message>
+
+    <message name="PlayerSetSpeedResponse">
+        <part name="body" element="xsd1:PlayerSetSpeedResponse"/>
+    </message>
+
+    <message name="PlayerSeekTo">
+        <part name="body" element="xsd1:PlayerSeekTo"/>
+    </message>
+
+    <message name="PlayerSeekToResponse">
+        <part name="body" element="xsd1:PlayerSeekToResponse"/>
+    </message>
+
+    <message name="GetVolume">
+        <part name="body" element="xsd1:GetVolume"/>
+    </message>
+
+    <message name="SetVolume">
+        <part name="body" element="xsd1:SetVolume"/>
+    </message>
+
+    <message name="VolumeResponse">
+        <part name="body" element="xsd1:VolumeResponse"/>
+    </message>
+
+    <message name="GetMute">
+        <part name="body" element="xsd1:GetMute"/>
+    </message>
+
+    <message name="SetMute">
+        <part name="body" element="xsd1:SetMute"/>
+    </message>
+
+    <message name="MuteResponse">
+        <part name="body" element="xsd1:MuteResponse"/>
+    </message>
+
+    <message name="Standby">
+        <part name="body" element="xsd1:Standby"/>
+    </message>
+
+    <message name="StandbyResponse">
+        <part name="body" element="xsd1:StandbyResponse"/>
+    </message>
+
+    <message name="ProgramTimer">
+        <part name="body" element="xsd1:ProgramTimer"/>
+    </message>
+
+    <message name="ProgramTimerResponse">
+        <part name="body" element="xsd1:ProgramTimerResponse"/>
+    </message>
+
+    <message name="GetDeviceData">
+        <part name="body" element="xsd1:GetDeviceData"/>
+    </message>
+
+    <message name="GetDeviceDataResponse">
+        <part name="body" element="xsd1:GetDeviceDataResponse"/>
+    </message>
+
+    <message name="GetValueFromBrowserJS">
+        <part name="body" element="xsd1:GetValueFromBrowserJS"/>
+    </message>
+
+    <message name="GetValueFromBrowserJSResponse">
+        <part name="body" element="xsd1:GetValueFromBrowserJSResponse"/>
+    </message>
+
+    <message name="GetBrowserJSChangeList">
+        <part name="body" element="xsd1:GetBrowserJSChangeList"/>
+    </message>
+
+    <message name="GetBrowserJSChangeListResponse">
+        <part name="body" element="xsd1:GetBrowserJSChangeListResponse"/>
+    </message>
+
+    <message name="SetValueToBrowserJS">
+        <part name="body" element="xsd1:SetValueToBrowserJS"/>
+    </message>
+
+    <message name="SetValueToBrowserJSResponse">
+        <part name="body" element="xsd1:SetValueToBrowserJSResponse"/>
+    </message>
+
+    <message name="GetCurrentPlayback">
+        <part name="body" element="xsd1:GetCurrentPlayback"/>
+    </message>
+
+    <message name="GetCurrentPlaybackResponse">
+        <part name="body" element="xsd1:GetCurrentPlaybackResponse"/>
+    </message>
+
+    <message name="GetCurrentStatus">
+        <part name="body" element="xsd1:GetCurrentStatus"/>
+    </message>
+
+    <message name="GetCurrentStatusResponse">
+        <part name="body" element="xsd1:GetCurrentStatusResponse"/>
+    </message>
+
+    <message name="ZapToApplication">
+        <part name="body" element="xsd1:ZapToApplication"/>
+    </message>
+
+    <message name="ZapToApplicationResponse">
+        <part name="body" element="xsd1:ZapToApplicationResponse"/>
+    </message>
+
+    <message name="ZapToMedia">
+        <part name="body" element="xsd1:ZapToMedia"/>
+    </message>
+
+    <message name="ZapToMediaResponse">
+        <part name="body" element="xsd1:ZapToMediaResponse"/>
+    </message>
+
+    <message name="InjectRCKey">
+        <part name="body" element="xsd1:InjectRCKey"/>
+    </message>
+
+    <message name="InjectRCKeyResponse">
+        <part name="body" element="xsd1:InjectRCKeyResponse"/>
+    </message>
+
+    <message name="InjectKeyboardKey">
+        <part name="body" element="xsd1:InjectKeyboardKey"/>
+    </message>
+
+    <message name="InjectKeyboardKeyResponse">
+        <part name="body" element="xsd1:InjectKeyboardKeyResponse"/>
+    </message>
+
+    <message name="SetActionField">
+        <part name="body" element="xsd1:SetActionField"/>
+    </message>
+
+    <message name="SetActionFieldResponse">
+        <part name="body" element="xsd1:SetActionFieldResponse"/>
+    </message>
+    
+    <message name="GetActionField">
+        <part name="body" element="xsd1:GetActionField"/>
+    </message>
+
+    <message name="GetActionFieldResponse">
+        <part name="body" element="xsd1:GetActionFieldResponse"/>
+    </message>
+
+    <message name="GetFeature">
+        <part name="body" element="xsd1:GetFeature"/>
+    </message>
+
+    <message name="GetFeatureResponse">
+        <part name="body" element="xsd1:GetFeatureResponse"/>
+    </message>
+
+    <message name="ActivateFeaturePackage">
+        <part name="body" element="xsd1:ActivateFeaturePackage"/>
+    </message>
+
+    <message name="ActivateFeaturePackageResponse">
+        <part name="body" element="xsd1:ActivateFeaturePackageResponse"/>
+    </message>
+    
+    <message name="DeactivateFeaturePackage">
+        <part name="body" element="xsd1:DeactivateFeaturePackage"/>
+    </message>
+
+    <message name="DeactivateFeaturePackageResponse">
+        <part name="body" element="xsd1:DeactivateFeaturePackageResponse"/>
+    </message>
+
+    <message name="GetUpgradeInfo">
+        <part name="body" element="xsd1:GetUpgradeInfo"/>
+    </message>
+
+    <message name="GetUpgradeInfoResponse">
+        <part name="body" element="xsd1:GetUpgradeInfoResponse"/>
+    </message>
+
+    <message name="GetListOfChannelLists">
+        <part name="body" element="xsd1:GetListOfChannelLists"/>
+    </message>
+
+    <message name="GetListOfChannelListsResponse">
+        <part name="body" element="xsd1:GetListOfChannelListsResponse"/>
+    </message>
+
+    <message name="AddFavoriteList">
+        <part name="body" element="xsd1:AddFavoriteList"/>
+    </message>
+
+    <message name="AddFavoriteListResponse">
+        <part name="body" element="xsd1:AddFavoriteListResponse"/>
+    </message>
+
+    <message name="RemoveFavoriteList">
+        <part name="body" element="xsd1:RemoveFavoriteList"/>
+    </message>
+
+    <message name="RemoveFavoriteListResponse">
+        <part name="body" element="xsd1:RemoveFavoriteListResponse"/>
+    </message>
+
+    <message name="RenameFavoriteList">
+        <part name="body" element="xsd1:RenameFavoriteList"/>
+    </message>
+
+    <message name="RenameFavoriteListResponse">
+        <part name="body" element="xsd1:RenameFavoriteListResponse"/>
+    </message>
+
+    <message name="AddServicesFavoriteList">
+        <part name="body" element="xsd1:AddServicesFavoriteList"/>
+    </message>
+
+    <message name="AddServicesFavoriteListResponse">
+        <part name="body" element="xsd1:AddServicesFavoriteListResponse"/>
+    </message>
+
+    <message name="RemoveServicesFavoriteList">
+        <part name="body" element="xsd1:RemoveServicesFavoriteList"/>
+    </message>
+
+    <message name="RemoveServicesFavoriteListResponse">
+        <part name="body" element="xsd1:RemoveServicesFavoriteListResponse"/>
+    </message>
+
+    <message name="MoveServicesFavoriteList">
+        <part name="body" element="xsd1:MoveServicesFavoriteList"/>
+    </message>
+
+    <message name="MoveServicesFavoriteListResponse">
+        <part name="body" element="xsd1:MoveServicesFavoriteListResponse"/>
+    </message>
+
+    <message name="AddFavoriteListFromVirtual">
+        <part name="body" element="xsd1:AddFavoriteListFromVirtual"/>
+    </message>
+
+    <message name="AddFavoriteListResponseFromVirtual">
+        <part name="body" element="xsd1:AddFavoriteListResponseFromVirtual"/>
+    </message>
+
+    <message name="GetListOfVirtualLists">
+        <part name="body" element="xsd1:GetListOfVirtualLists"/>
+    </message>
+
+    <message name="GetListOfVirtualListsResponse">
+        <part name="body" element="xsd1:GetListOfVirtualListsResponse"/>
+    </message>
+
+    <message name="ImportServiceLists">
+        <part name="body" element="xsd1:ImportServiceLists"/>
+    </message>
+
+    <message name="ImportServiceListsResponse">
+        <part name="body" element="xsd1:ImportServiceListsResponse"/>
+    </message>
+
+    <message name="ExportServiceLists">
+        <part name="body" element="xsd1:ExportServiceLists"/>
+    </message>
+
+    <message name="ExportServiceListsResponse">
+        <part name="body" element="xsd1:ExportServiceListsResponse"/>
+    </message>
+
+    <message name="GetDRPlusArchive">
+        <part name="body" element="xsd1:GetDRPlusArchive"/>
+    </message>
+
+    <message name="GetDRPlusArchiveResponse">
+        <part name="body" element="xsd1:GetDRPlusArchiveResponse"/>
+    </message>
+
+    <message name="GetVolumes">
+        <part name="body" element="xsd1:GetVolumes"/>
+    </message>
+
+    <message name="GetVolumesResponse">
+        <part name="body" element="xsd1:GetVolumesResponse"/>
+    </message>
+
+    <message name="PlayMultiroom">
+        <part name="body" element="xsd1:PlayMultiroom"/>
+    </message>
+
+    <message name="PlayMultiroomResponse">
+        <part name="body" element="xsd1:PlayMultiroomResponse"/>
+    </message>
+
+    <message name="GetSettings">
+        <part name="body" element="xsd1:GetSettings"/>
+    </message>
+
+    <message name="GetSettingsResponse">
+        <part name="body" element="xsd1:GetSettingsResponse"/>
+    </message>
+
+    <message name="SetSetting">
+        <part name="body" element="xsd1:SetSetting"/>
+    </message>
+
+    <message name="SetSettingResponse">
+        <part name="body" element="xsd1:SetSettingResponse"/>
+    </message>
+
+    <message name="ParentalLock">
+        <part name="body" element="xsd1:ParentalLock"/>
+    </message>
+
+    <message name="ParentalLockResponse">
+        <part name="body" element="xsd1:ParentalLockResponse"/>
+    </message>
+    
+    <message name="GetParentalLock">
+        <part name="body" element="xsd1:GetParentalLock"/>
+    </message>
+
+    <message name="GetParentalLockResponse">
+        <part name="body" element="xsd1:GetParentalLockResponse"/>
+    </message>
+
+    <message name="GetTimerList">
+        <part name="body" element="xsd1:GetTimerList"/>
+    </message>
+
+    <message name="GetTimerListResponse">
+        <part name="body" element="xsd1:GetTimerListResponse"/>
+    </message>
+    
+    <message name="CreateIterator">
+        <part name="body" element="xsd1:CreateIterator"/>
+    </message>
+
+    <message name="CreateIteratorResponse">
+        <part name="body" element="xsd1:CreateIteratorResponse"/>
+    </message>
+    
+    <message name="CloseIterator">
+        <part name="body" element="xsd1:CloseIterator"/>
+    </message>
+
+    <message name="CloseIteratorResponse">
+        <part name="body" element="xsd1:CloseIteratorResponse"/>
+    </message>
+
+    <portType name="LOEWETabletPortType">
+
+        <operation name="RequestAccess">
+            <input message="tns:RequestAccess"/>
+            <output message="tns:RequestAccessResponse"/>
+        </operation>
+        <operation name="GetChannelList">
+            <input message="tns:GetChannelList"/>
+            <output message="tns:GetChannelListResponse"/>
+        </operation>
+        <operation name="GetCurrentEvent">
+            <input message="tns:GetCurrentEvent"/>
+            <output message="tns:GetCurrentEventResponse"/>
+        </operation>
+        <operation name="GetNextEvent">
+            <input message="tns:GetNextEvent"/>
+            <output message="tns:GetNextEventResponse"/>
+        </operation>
+        <operation name="GetMediaItem">
+            <input message="tns:GetMediaItem"/>
+            <output message="tns:GetMediaItemResponse"/>
+        </operation>
+        <operation name="GetMediaEvent">
+            <input message="tns:GetMediaEvent"/>
+            <output message="tns:GetMediaEventResponse"/>
+        </operation>
+        <operation name="GetVolume">
+            <input message="tns:GetVolume"/>
+            <output message="tns:VolumeResponse"/>
+        </operation>
+        <operation name="SetVolume">
+            <input message="tns:SetVolume"/>
+            <output message="tns:VolumeResponse"/>
+        </operation>
+        <operation name="GetMute">
+            <input message="tns:GetMute"/>
+            <output message="tns:MuteResponse"/>
+        </operation>
+        <operation name="SetMute">
+            <input message="tns:SetMute"/>
+            <output message="tns:MuteResponse"/>
+        </operation>
+        <operation name="Standby">
+            <input message="tns:Standby"/>
+            <output message="tns:StandbyResponse"/>
+        </operation>
+        <operation name="ProgramTimer">
+            <input message="tns:ProgramTimer"/>
+            <output message="tns:ProgramTimerResponse"/>
+        </operation>
+        <operation name="GetDeviceData">
+            <input message="tns:GetDeviceData"/>
+            <output message="tns:GetDeviceDataResponse"/>
+        </operation>
+        <operation name="GetValueFromBrowserJS">
+            <input message="tns:GetValueFromBrowserJS"/>
+            <output message="tns:GetValueFromBrowserJSResponse"/>
+        </operation>
+        <operation name="GetBrowserJSChangeList">
+            <input message="tns:GetBrowserJSChangeList"/>
+            <output message="tns:GetBrowserJSChangeListResponse"/>
+        </operation>
+        <operation name="SetValueToBrowserJS">
+            <input message="tns:SetValueToBrowserJS"/>
+            <output message="tns:SetValueToBrowserJSResponse"/>
+        </operation>
+        <operation name="GetCurrentPlayback">
+            <input message="tns:GetCurrentPlayback"/>
+            <output message="tns:GetCurrentPlaybackResponse"/>
+        </operation>
+        <operation name="GetCurrentStatus">
+            <input message="tns:GetCurrentStatus"/>
+            <output message="tns:GetCurrentStatusResponse"/>
+        </operation>
+        <operation name="PlayerPrepare">
+            <input message="tns:PlayerPrepare"/>
+            <output message="tns:PlayerPrepareResponse"/>
+        </operation>
+        <operation name="PlayerReleasePrepared">
+            <input message="tns:PlayerReleasePrepared"/>
+            <output message="tns:PlayerReleasePreparedResponse"/>
+        </operation>
+        <operation name="PlayerPlay">
+            <input message="tns:PlayerPlay"/>
+            <output message="tns:PlayerPlayResponse"/>
+        </operation>
+        <operation name="PlayerPause">
+            <input message="tns:PlayerPause"/>
+            <output message="tns:PlayerPauseResponse"/>
+        </operation>
+        <operation name="PlayerResume">
+            <input message="tns:PlayerResume"/>
+            <output message="tns:PlayerResumeResponse"/>
+        </operation>
+        <operation name="PlayerStop">
+            <input message="tns:PlayerStop"/>
+            <output message="tns:PlayerStopResponse"/>
+        </operation>
+        <operation name="PlayerSetSpeed">
+            <input message="tns:PlayerSetSpeed"/>
+            <output message="tns:PlayerSetSpeedResponse"/>
+        </operation>
+        <operation name="PlayerSeekTo">
+            <input message="tns:PlayerSeekTo"/>
+            <output message="tns:PlayerSeekToResponse"/>
+        </operation>
+        <operation name="ZapToApplication">
+            <input message="tns:ZapToApplication"/>
+            <output message="tns:ZapToApplicationResponse"/>
+        </operation>
+        <operation name="ZapToMedia">
+            <input message="tns:ZapToMedia"/>
+            <output message="tns:ZapToMediaResponse"/>
+        </operation>
+        <operation name="InjectRCKey">
+            <input message="tns:InjectRCKey"/>
+            <output message="tns:InjectRCKeyResponse"/>
+        </operation>
+        <operation name="InjectKeyboardKey">
+            <input message="tns:InjectKeyboardKey"/>
+            <output message="tns:InjectKeyboardKeyResponse"/>
+        </operation>
+        <operation name="SetActionField">
+            <input message="tns:SetActionField"/>
+            <output message="tns:SetActionFieldResponse"/>
+        </operation>
+        <operation name="GetActionField">
+            <input message="tns:GetActionField"/>
+            <output message="tns:GetActionFieldResponse"/>
+        </operation>
+        <operation name="GetListOfChannelLists">
+            <input message="tns:GetListOfChannelLists"/>
+            <output message="tns:GetListOfChannelListsResponse"/>
+        </operation>
+        <operation name="GetFeature">
+            <input message="tns:GetFeature"/>
+            <output message="tns:GetFeatureResponse"/>
+        </operation>
+        <operation name="ActivateFeaturePackage">
+            <input message="tns:ActivateFeaturePackage"/>
+            <output message="tns:ActivateFeaturePackageResponse"/>
+        </operation>
+        <operation name="DeactivateFeaturePackage">
+            <input message="tns:DeactivateFeaturePackage"/>
+            <output message="tns:DeactivateFeaturePackageResponse"/>
+        </operation>
+        <operation name="GetUpgradeInfo">
+            <input message="tns:GetUpgradeInfo"/>
+            <output message="tns:GetUpgradeInfoResponse"/>
+        </operation>
+        <operation name="AddFavoriteList">
+            <input message="tns:AddFavoriteList"/>
+            <output message="tns:AddFavoriteListResponse"/>
+        </operation>
+        <operation name="RemoveFavoriteList">
+            <input message="tns:RemoveFavoriteList"/>
+            <output message="tns:RemoveFavoriteListResponse"/>
+        </operation>
+        <operation name="RenameFavoriteList">
+            <input message="tns:RenameFavoriteList"/>
+            <output message="tns:RenameFavoriteListResponse"/>
+        </operation>
+        <operation name="AddServicesFavoriteList">
+            <input message="tns:AddServicesFavoriteList"/>
+            <output message="tns:AddServicesFavoriteListResponse"/>
+        </operation>
+        <operation name="RemoveServicesFavoriteList">
+            <input message="tns:RemoveServicesFavoriteList"/>
+            <output message="tns:RemoveServicesFavoriteListResponse"/>
+        </operation>
+        <operation name="MoveServicesFavoriteList">
+            <input message="tns:MoveServicesFavoriteList"/>
+            <output message="tns:MoveServicesFavoriteListResponse"/>
+        </operation>
+        <operation name="AddFavoriteListFromVirtual">
+            <input message="tns:AddFavoriteListFromVirtual"/>
+            <output message="tns:AddFavoriteListResponseFromVirtual"/>
+        </operation>
+        <operation name="GetListOfVirtualLists">
+            <input message="tns:GetListOfVirtualLists"/>
+            <output message="tns:GetListOfVirtualListsResponse"/>
+        </operation>
+        <operation name="ImportServiceLists">
+            <input message="tns:ImportServiceLists"/>
+            <output message="tns:ImportServiceListsResponse"/>
+        </operation>
+        <operation name="ExportServiceLists">
+            <input message="tns:ExportServiceLists"/>
+            <output message="tns:ExportServiceListsResponse"/>
+        </operation>
+        <operation name="GetDRPlusArchive">
+            <input message="tns:GetDRPlusArchive"/>
+            <output message="tns:GetDRPlusArchiveResponse"/>
+        </operation>
+        <operation name="GetVolumes">
+            <input message="tns:GetVolumes"/>
+            <output message="tns:GetVolumesResponse"/>
+        </operation>
+        <operation name="PlayMultiroom">
+            <input message="tns:PlayMultiroom"/>
+            <output message="tns:PlayMultiroomResponse"/>
+        </operation>
+        <operation name="GetSettings">
+            <input message="tns:GetSettings"/>
+            <output message="tns:GetSettingsResponse"/>
+        </operation>
+        <operation name="SetSetting">
+            <input message="tns:SetSetting"/>
+            <output message="tns:SetSettingResponse"/>
+        </operation>
+        <operation name="ParentalLock">
+            <input message="tns:ParentalLock"/>
+            <output message="tns:ParentalLockResponse"/>
+        </operation>
+        <operation name="GetParentalLock">
+            <input message="tns:GetParentalLock"/>
+            <output message="tns:GetParentalLockResponse"/>
+        </operation>
+        <operation name="GetTimerList">
+            <input message="tns:GetTimerList"/>
+            <output message="tns:GetTimerListResponse"/>
+        </operation>
+        <operation name="CreateIterator">
+            <input message="tns:CreateIterator"/>
+            <output message="tns:CreateIteratorResponse"/>
+        </operation>
+        <operation name="CloseIterator">
+            <input message="tns:CloseIterator"/>
+            <output message="tns:CloseIteratorResponse"/>
+        </operation>
+
+    </portType>
+
+    <binding name="LOEWETabletPortBinding" type="tns:LOEWETabletPortType">
+
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RequestAccess">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#RequestAccess"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetChannelList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetChannelList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetCurrentEvent">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetCurrentEvent"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetNextEvent">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetNextEvent"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetMediaItem">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetMediaItem"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetMediaEvent">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetMediaEvent"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetVolume">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetVolume"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="SetVolume">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#SetVolume"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetMute">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetMute"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="SetMute">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#SetMute"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="Standby">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#Standby"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ProgramTimer">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ProgramTimer"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetDeviceData">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetDeviceData"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetValueFromBrowserJS">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetValueFromBrowserJS"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetBrowserJSChangeList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetBrowserJSChangeList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="SetValueToBrowserJS">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#SetValueToBrowserJS"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetCurrentPlayback">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetCurrentPlayback"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetCurrentStatus">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetCurrentStatus"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerPrepare">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerPrepare"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerReleasePrepared">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerReleasePrepared"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerPlay">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerPlay"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerPause">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerPause"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerResume">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerResume"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerStop">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerStop"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerSetSpeed">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerSetSpeed"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayerSeekTo">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayerSeekTo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ZapToApplication">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ZapToApplication"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ZapToMedia">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ZapToMedia"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="InjectRCKey">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#InjectRCKey"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="InjectKeyboardKey">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#InjectKeyboardKey"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="SetActionField">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#SetActionField"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetActionField">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetActionField"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetListOfChannelLists">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetListOfChannelLists"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetFeature">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetFeature"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ActivateFeaturePackage">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ActivateFeaturePackage"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="DeactivateFeaturePackage">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#DeactivateFeaturePackage"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetUpgradeInfo">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetUpgradeInfo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#AddFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="RemoveFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#RemoveFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="RenameFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#RenameFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddServicesFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#AddServicesFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="RemoveServicesFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#RemoveServicesFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="MoveServicesFavoriteList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#MoveServicesFavoriteList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddFavoriteListFromVirtual">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#AddFavoriteListFromVirtual"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetListOfVirtualLists">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetListOfVirtualLists"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ImportServiceLists">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ImportServiceLists"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ExportServiceLists">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ExportServiceLists"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetDRPlusArchive">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetDRPlusArchive"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetVolumes">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetVolumes"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="PlayMultiroom">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#PlayMultiroom"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="SetSetting">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#SetSetting"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetSettings">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetSettings"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ParentalLock">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#ParentalLock"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetParentalLock">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetParentalLock"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetTimerList">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#GetTimerList"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CreateIterator">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#CreateIterator"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CloseIterator">
+            <soap:operation soapAction="urn:loewe.de:RemoteTV:Tablet#CloseIterator"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="LOEWERemoteService">
+        <documentation>Remote service for LOEWE device</documentation>
+        <port name="LOEWETabletPort" binding="tns:LOEWETabletPortBinding">
+            <soap:address location="http://192.168.169.220:905/loewe_tablet_0001"/>
+        </port>
+    </service>
+
+</definitions>
